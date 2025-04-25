@@ -9,6 +9,8 @@ use Filament\Tables\Table;
 use App\Models\PohonKinerja;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Facades\Storage;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
@@ -57,18 +59,34 @@ class PohonKinerjaResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('nama'),
+                TextColumn::make('tahun'),
+                TextColumn::make('created_at')
+                    ->dateTime(),
             ])
-            ->emptyStateHeading('Tidak ada data pohon kinerja')
+            ->emptyStateHeading('Tidak Ada Data')
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+                ->after(function (PohonKinerja $record) {
+                    // delete file
+                    if ($record->file) {
+                        Storage::disk('public')->delete($record->file);
+                    }
+                }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                    ->after(function (PohonKinerja $record) {
+                        // delete file
+                        if ($record->file) {
+                            Storage::disk('public')->delete($record->file);
+                        }
+                    }),
                 ]),
             ]);
     }

@@ -28,7 +28,6 @@ class PerangkatDaerahPanelProvider extends PanelProvider
             ->id('perangkat_daerah')
             ->path('perangkat_daerah')
             ->login(LoginCustom::class)
-            ->registration()
             ->sidebarCollapsibleOnDesktop(true)
             ->maxContentWidth(MaxWidth::Full)
             ->colors([
@@ -57,6 +56,7 @@ class PerangkatDaerahPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->databaseNotifications();
     }
 }
