@@ -17,7 +17,6 @@ class AdminOverview extends BaseWidget
 
         return [
             Stat::make('Perangkat Daerah', $user),
-            Stat::make('Pohon Kinerja', PohonKinerja::query()->count()),
         ];
     }
 }

@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pohon_kinerjas', function (Blueprint $table) {
-            $table->ulid('id')->primary();
+        Schema::create('pokin_kotas', function (Blueprint $table) {
+            $table->id();
             $table->string('nama');
-            $table->string('tahun');
-            $table->string('file');
+            $table->string('keterangan');
+            $table->smallInteger('misi')->nullable();
+            $table->string('tahun')->nullable();
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pohon_kinerjas');
+        Schema::dropIfExists('pokin_kotas');
     }
 };
