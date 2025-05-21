@@ -14,15 +14,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser // untuk setting filament user
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
+    // tambahkan ini
     use HasPanelShield;
 
+    // fungsi untuk kontrol akses user
     public function canAccessPanel(Panel $panel): bool
     {
-        return match($panel->getId()) {
+        return match ($panel->getId()) {
             default => false,
             'admin' => str_starts_with($this->name, 'admin') && $this->hasRole('super_admin'),
             'perangkat_daerah' => $this->hasRole('panel_user'),
@@ -59,14 +61,4 @@ class User extends Authenticatable implements FilamentUser
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function pokinkota(): HasMany
-    {
-         return $this->hasMany(PokinKota::class);
-    }
-
-    public function datapokinkota(): HasMany
-    {
-         return $this->hasMany(DataPokinKota::class);
-    }
 }

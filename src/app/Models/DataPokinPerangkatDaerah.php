@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class DataPokinKota extends Model
+class DataPokinPerangkatDaerah extends Model
 {
     use HasFactory;
 

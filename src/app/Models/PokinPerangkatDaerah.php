@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class DataPokinKota extends Model
+class PokinPerangkatDaerah extends Model
 {
     use HasFactory;
 
@@ -21,10 +22,6 @@ class DataPokinKota extends Model
             $model->user_id = Auth::user()->id;
         });
     }
-
-    protected $casts = [
-        'indikator' => 'array',
-    ];
 
     public function user(): BelongsTo
     {
