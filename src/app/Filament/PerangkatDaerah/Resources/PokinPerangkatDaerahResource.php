@@ -78,7 +78,7 @@ class PokinPerangkatDaerahResource extends Resource
                 TextColumn::make('nama'),
                 TextColumn::make('keterangan'),
                 TextColumn::make('misi'),
-                TextColumn::make('kondisi_id'),
+                TextColumn::make('kondisi_id')->label('ID Kondisi'),
                 TextColumn::make('tahun'),
             ])
             ->filters([

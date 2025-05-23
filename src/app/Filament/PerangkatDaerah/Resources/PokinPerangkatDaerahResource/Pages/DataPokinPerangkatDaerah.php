@@ -47,7 +47,7 @@ class DataPokinPerangkatDaerah extends Page implements HasTable
             Select::make('parentId')
                 ->label('ID Kondisi')
                 ->options(function (): array {
-                    return \App\Models\DataPokinPerangkatDaerah::where('misi', $this->record->misi)->pluck('nama_kondisi', 'id')->all();
+                    return \App\Models\DataPokinPerangkatDaerah::where('user_id', auth()->id())->pluck('nama_kondisi', 'id')->all();
                 })
                 // ->options(\App\Models\DataPokinKota::where('misi', $this->record->misi)->pluck('nama_kondisi', 'id'))
                 ->searchable()
