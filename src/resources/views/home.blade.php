@@ -14,6 +14,7 @@
 
 <body>
     <div class="container-fluid">
+        <h4 class="mt-3">Pohon Kinerja</h4>
         <div class="row my-3">
             <div class="col">
                 <select class="form-select" id="tipe_pokin" aria-label="Default select example">
@@ -35,41 +36,104 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js" integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D" crossorigin="anonymous"></script>
+    <!-- untuk menampilkan select -->
     <script>
-        const data = <?php echo json_encode($data); ?>;
+        $("#tipe_pokin").change(function() {
+            var selectedValue = $(this).val();
 
-        let chart = new d3.OrgChart()
-            .nodeWidth((node) => 400)
-            .nodeHeight((node) => 125)
-            .nodeContent((node) => {
-                return `<div style="background-color:white;
-                            width:${node.width}px;
-                            height:${node.height}px;
-                            text-align: center;
-                            outline-style: solid;
-                            outline-color: silver"> 
-                            <br>
-                            ${node.data.nama_kondisi}
-                            <br><br><br><br>
-                            <div style="background-color: white;
-                                width:400px;
-                                height:55px;
-                                outline-style: solid;
-                                outline-color: silver"
-                            </div><br>${node.data.indikator}
-                            
-                        </div>`;
-            })
-            .container('.chart-container')
-            .data(data)
-        chart.linkUpdate(function(d, i, arr) {
-            d3.select(this)
-                .attr("stroke", 'silver')
-                .attr("stroke-width", 1)
+            if (selectedValue == "kota") {
+                $('#nama_pokin').empty()
+                $('#nama_pokin').append('<option value="" disabled selected>Pilih Opsi</option>');
+
+                $(document).ready(function() {
+                    $.ajax({
+                        url: '/api/misi', // Ulangi dengan route Anda
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $.each(data, function(key, value) {
+                                $('#nama_pokin').append('<option value="' + value.id + '">' + value.misi + '. ' + value.keterangan + '</option>');
+                            });
+                        }
+                    });
+                });
+            } else if (selectedValue == "perangkat_daerah") {
+                $('#nama_pokin').empty()
+                $('#nama_pokin').append('<option value="" disabled selected>Pilih Opsi</option>');
+
+                $(document).ready(function() {
+                    $.ajax({
+                        url: '/api/perangkatdaerah', // Ulangi dengan route Anda
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $.each(data, function(key, value) {
+                                $('#nama_pokin').append('<option value="' + value.id + '">' + value.name + '</option>');
+                            });
+                        }
+                    });
+                });
+            }
         })
-        chart.compact(false).render();
     </script>
+    <!-- untuk menampilkan data -->
+    <script>
+        $(document).ready(function() {
+            $('#tipe_pokin, #nama_pokin').on('change', function() {
+                var tipe = $('#tipe_pokin').val();
+                var id = $('#nama_pokin').val();
 
+                $.ajax({
+                    url: '/api/data',
+                    type: 'POST',
+                    data: {
+                        tipe: tipe,
+                        id: id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        //  d3 org js untuk pohon kinerja 
+                        const data = response.data;
+
+                        let chart = new d3.OrgChart()
+                            .nodeWidth((node) => 350)
+                            .nodeHeight((node) => 135)
+                            .nodeContent((node) => {
+                                return `<div style="background-color:white;
+                                        width:${node.width}px;
+                                        height:${node.height}px;
+                                        text-align: center;
+                                        outline-style: solid;
+                                        outline-color: silver"> 
+                                        <br>
+                                        ${node.data.nama_kondisi}
+                                        <br><br><br><br>
+                                        <div style="background-color: white;
+                                            width:350px;
+                                            height:65px;
+                                            outline-style: solid;
+                                            outline-color: silver"
+                                        </div><br>${node.data.indikator}
+                            
+                                        </div>`;
+                            })
+                            .container('.chart-container')
+                            .data(data)
+                        chart.linkUpdate(function(d, i, arr) {
+                            d3.select(this)
+                                .attr("stroke", 'silver')
+                                .attr("stroke-width", 1)
+                        })
+                        chart.compact(false).render();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                })
+
+            })
+        })
+    </script>
 </body>
 
 </html>

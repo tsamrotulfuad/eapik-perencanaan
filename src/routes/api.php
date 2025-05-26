@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Models\DataPokinKota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,4 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/tujuan', [DataPokinKota::class, 'tujuan_data'])->name('tujuan.data');
+Route::get('/perangkatdaerah', [HomeController::class, 'getPerangkatdaerah']);
+Route::get('/misi', [HomeController::class, 'getMisi']);
+Route::post('/data', [HomeController::class, 'getData']);
