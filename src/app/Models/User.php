@@ -40,6 +40,7 @@ class User extends Authenticatable implements FilamentUser // untuk setting fila
         'name',
         'email',
         'password',
+        'keterangan',
     ];
 
     /**

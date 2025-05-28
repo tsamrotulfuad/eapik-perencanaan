@@ -20,7 +20,7 @@ use App\Filament\Resources\PokinKotaResource\RelationManagers;
 class PokinKotaResource extends Resource
 {
     protected static ?string $model = PokinKota::class;
-    protected static ?string $navigationIcon = "heroicon-o-rectangle-stack";
+    protected static ?string $navigationIcon = "heroicon-c-folder-plus";
     protected static ?string $navigationLabel = "Pohon Kinerja";
     protected static ?string $breadcrumb = "Pohon Kinerja";
 

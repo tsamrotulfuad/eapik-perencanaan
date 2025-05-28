@@ -68,7 +68,7 @@
                         dataType: 'json',
                         success: function(data) {
                             $.each(data, function(key, value) {
-                                $('#nama_pokin').append('<option value="' + value.id + '">' + value.name + '</option>');
+                                $('#nama_pokin').append('<option value="' + value.id + '">' + value.keterangan + '</option>');
                             });
                         }
                     });

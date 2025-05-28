@@ -39,6 +39,8 @@ class UserResource extends Resource
                     ->password()
                     ->revealable()
                     ->maxLength(255),
+                TextInput::make('keterangan')
+                    ->required(),
                 Select::make('roles')
                     ->relationship('roles', 'name')
                     ->preload()
@@ -52,9 +54,9 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('email'),
+                TextColumn::make('keterangan'),
                 TextColumn::make('roles.name'),
                 TextColumn::make('created_at'),
-                TextColumn::make('updated_at'),
             ])
             ->filters([
                 //
@@ -84,5 +86,4 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
-    
 }
