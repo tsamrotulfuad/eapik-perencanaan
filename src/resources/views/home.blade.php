@@ -97,7 +97,7 @@
 
                         let chart = new d3.OrgChart()
                             .nodeWidth((node) => 350)
-                            .nodeHeight((node) => 135)
+                            .nodeHeight((node) => 155)
                             .nodeContent((node) => {
                                 return `<div style="background-color:${node.data.color_indikator};
                                         width:${node.width}px;
@@ -109,7 +109,7 @@
                                         <br><br><br><br>
                                         <div style="background-color:white;
                                         width:350px;
-                                        height:55px;
+                                        height:75px;
                                         text-align: center;
                                         border-top: 3px solid #000"><br>
                                             ${node.data.indikator}
