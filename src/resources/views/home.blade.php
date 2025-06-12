@@ -99,31 +99,33 @@
                             .nodeWidth((node) => 350)
                             .nodeHeight((node) => 135)
                             .nodeContent((node) => {
-                                return `<div style="background-color:white;
+                                return `<div style="background-color:${node.data.color_indikator};
                                         width:${node.width}px;
                                         height:${node.height}px;
                                         text-align: center;
                                         outline-style: solid;
-                                        outline-color: silver"> 
-                                        <br>
-                                        ${node.data.nama_kondisi}
+                                        outline-color: black"><br><br>
+                                            ${node.data.nama_kondisi}
                                         <br><br><br><br>
-                                        <div style="background-color: white;
-                                            width:350px;
-                                            height:65px;
-                                            outline-style: solid;
-                                            outline-color: silver"
-                                        </div><br>${node.data.indikator}
-                            
+                                        <div style="background-color:white;
+                                        width:350px;
+                                        height:55px;
+                                        text-align: center;
+                                        border-top: 3px solid #000"><br>
+                                            ${node.data.indikator}
+                                        </div>
                                         </div>`;
                             })
                             .container('.chart-container')
                             .data(data)
+                        chart.childrenMargin(node => 100)
+                        chart.siblingsMargin(node => 60)
                         chart.linkUpdate(function(d, i, arr) {
                             d3.select(this)
-                                .attr("stroke", 'silver')
-                                .attr("stroke-width", 1)
+                                .attr("stroke", "black")
+                                .attr("stroke-width", 2)
                         })
+                        
                         chart.compact(false).render();
                     },
                     error: function(xhr, status, error) {
