@@ -13,6 +13,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Tables\Actions\DeleteAction;
+use Filament\Forms\Components\ColorPicker;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use App\Filament\PerangkatDaerah\Resources\PokinPerangkatDaerahResource;
@@ -63,6 +64,7 @@ class DataPokinPerangkatDaerah extends Page implements HasTable
                 ->default("2025-2029")
                 ->native(false)
                 ->required(),
+            ColorPicker::make('color_indikator')->label('Warna Indikator')
         ])
             ->columns(2)
             ->statePath('data');

@@ -31,8 +31,9 @@ class PerangkatDaerahPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop(true)
             ->maxContentWidth(MaxWidth::Full)
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Blue,
             ])
+            ->favicon(asset('logo/favicon.ico'))
             ->discoverResources(in: app_path('Filament/PerangkatDaerah/Resources'), for: 'App\\Filament\\PerangkatDaerah\\Resources')
             ->discoverPages(in: app_path('Filament/PerangkatDaerah/Pages'), for: 'App\\Filament\\PerangkatDaerah\\Pages')
             ->pages([
