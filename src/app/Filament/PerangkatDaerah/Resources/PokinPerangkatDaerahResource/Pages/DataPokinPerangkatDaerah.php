@@ -131,6 +131,7 @@ class DataPokinPerangkatDaerah extends Page implements HasTable
                             ->default("2025-2029")
                             ->native(false)
                             ->required(),
+                        ColorPicker::make('color_indikator')->label('Warna Indikator'),
                     ])
                     ->modalHeading('Edit data'),
                 DeleteAction::make()->requiresConfirmation(),
